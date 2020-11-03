@@ -10,8 +10,9 @@ import Foundation
 struct MatchingGame<CardContent> {
     var cards: Array<Card>
     
-    func choose(card: Card) {
-        print("card chosen \(card)")
+    mutating func choose(card: Card) {
+        let cardIndex = cards.firstIndex(matching: card)
+        cards[cardIndex].isFaceUp = !cards[cardIndex].isFaceUp
     }
     
     init(numberOfPairsOfCards: Int, cardContentFactory: (Int) -> CardContent) {
@@ -27,7 +28,7 @@ struct MatchingGame<CardContent> {
     struct Card: Identifiable {
         var id: Int
         var content: CardContent
-        var isFaceUp: Bool = true
+        var isFaceUp: Bool = false
         var isMatched: Bool = false
     }
 }
